@@ -31,6 +31,12 @@ local_users:
     sha512_password: "{{ ansible_password | password_hash('sha512', salt='arista', rounds=5000) }}"
     ssh_key: "{{ lookup('ansible.builtin.file', '~/.ssh/id_rsa.pub') }}"
 
+# Login Banner
+banners:
+  motd: |
+    You shall not pass. Unless you are authorized. Then you shall pass.
+    EOF
+
 # AAA
 aaa_authorization:
   exec:
