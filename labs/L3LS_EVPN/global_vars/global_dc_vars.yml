@@ -31,6 +31,12 @@ local_users:
     sha512_password: "{{ ansible_password | password_hash('sha512', salt='arista', rounds=5000) }}"
     ssh_key: "{{ lookup('ansible.builtin.file', '~/.ssh/id_rsa.pub') }}"
 
+# Login Banner
+banners:
+  motd: |
+    You shall not pass. Unless you are authorized. Then you shall pass.
+    EOF
+
 # AAA
 aaa_authorization:
   exec:
@@ -49,6 +55,15 @@ ntp:
 
 # Domain/DNS
 dns_domain: atd.lab
+
+# Syslog
+logging:
+  vrfs:
+    - name: default
+      source_interface: Management0
+      hosts:
+        - name: 10.200.0.108
+        - name: 10.200.1.108
 
 # TerminAttr
 daemon_terminattr:
